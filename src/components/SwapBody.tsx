@@ -88,7 +88,9 @@ export default function SwapBody() {
           localStorage.setItem('chainId', currentNetwork?.id)
         })
       } catch {
-        console.log('error')
+        window.ethereum.on('chainChanged', () => {
+          localStorage.setItem('chainId', '137')
+        })
       }
     }
   }, [])
