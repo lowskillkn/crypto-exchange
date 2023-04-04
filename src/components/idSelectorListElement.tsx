@@ -41,6 +41,7 @@ export default function IdSelectorListElement({ el, closeModal }: any) {
   }
 
   const clickHandler = (el: INetwork) => {
+    localStorage.setItem('chaiId', el.hex)
     changeCurrentNetwork(el)
     closeModal()
     chainChanged(el)

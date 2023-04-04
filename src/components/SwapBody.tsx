@@ -48,7 +48,7 @@ export default function SwapBody() {
   const [hasMeta, setHasMeta] = useState(false)
 
   const addTokensToStore = async () => {
-    const tokensList = await getTokensList('250')
+    const tokensList = await getTokensList(currentNetwork.id || '250')
     addTokens(Object.values(tokensList))
   }
 
@@ -87,7 +87,7 @@ export default function SwapBody() {
         window.ethereum.on('chainChanged', () => {
           localStorage.setItem('chainId', currentNetwork?.id)
         })
-      } catch {
+      } catch (e) {
         window.ethereum.on('chainChanged', () => {
           localStorage.setItem('chainId', '137')
         })
