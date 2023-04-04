@@ -15,11 +15,11 @@ export interface IdSelectorModalState {
 
 const initialState: IdSelectorModalState = {
   currentNetwork: {
-    name: 'Fantom',
-    id: '250',
-    hex: '0xFA',
-    url: 'https://app.1inch.io/assets/images/network-logos/fantom.svg',
-    rpcUrl: ['https://rpc.ftm.tools/'],
+    name: '',
+    id: '',
+    hex: '',
+    url: '',
+    rpcUrl: [''],
   },
   networksList: [
     {

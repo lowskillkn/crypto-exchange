@@ -15,7 +15,7 @@ export default function IdSelectorModal() {
 
   useEffect(() => {
     const network = networksList.filter(
-      (e) => e.id === localStorage.getItem('chainId')
+      (e) => e.hex === localStorage.getItem('chaiId')
     )
     changeCurrentNetwork(network[0])
   }, [])
