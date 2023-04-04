@@ -43,7 +43,7 @@ export default function SwapBody() {
   )
   const { isLoading, isError, data } = useGetBalanceQuery([
     currentAccount,
-    currentNetwork.id,
+    currentNetwork?.id,
   ])
   // const [socketData, setSocketData] = useState({
   //   fast: '0.0',

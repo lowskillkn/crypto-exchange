@@ -37,7 +37,7 @@ export default function IdSelectorModal() {
             <div className="list-element__image">
               <img
                 className="modal-list-element__image"
-                src={currentNetwork.url}
+                src={currentNetwork?.url}
                 alt=""
               />
             </div>
