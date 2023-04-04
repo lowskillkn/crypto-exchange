@@ -41,7 +41,7 @@ export default function IdSelectorModal() {
                 alt=""
               />
             </div>
-            {currentNetwork.name}
+            {currentNetwork?.name}
           </div>
         </div>
         {isModal && (

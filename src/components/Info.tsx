@@ -21,7 +21,7 @@ export default function Info({ type, hasButton }: IInfo) {
   const { balance } = useAppSelector((state) => state.userMetamaskReducer)
   const { isLoading, isError, data } = useGetBalanceQuery([
     currentAccount,
-    currentNetwork.id,
+    currentNetwork?.id,
   ])
   const { changeTokenCount, changeBalance } = useActions()
 

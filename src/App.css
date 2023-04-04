@@ -446,3 +446,9 @@ body {
 .btn_green:hover {
   background-color: rgb(125, 192, 125);
 }
+
+.btn_link {
+  text-decoration: none;
+  text-align: center;
+  color: black;
+}

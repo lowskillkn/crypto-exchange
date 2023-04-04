@@ -45,16 +45,20 @@ export default function SwapBody() {
     currentAccount,
     currentNetwork?.id,
   ])
-  // const [socketData, setSocketData] = useState({
-  //   fast: '0.0',
-  //   instant: '0.0',
-  //   standard: '0.0',
-  // })
+  const [hasMeta, setHasMeta] = useState(false)
 
   const addTokensToStore = async () => {
-    const tokensList = await getTokensList(currentNetwork.id)
+    const tokensList = await getTokensList('250')
     addTokens(Object.values(tokensList))
   }
+
+  useEffect(() => {
+    if (typeof window.ethereum !== 'undefined') {
+      setHasMeta(true)
+    } else {
+      setHasMeta(false)
+    }
+  }, [])
 
   useEffect(() => {
     let socket = new WebSocket('wss://gas-price-api.1inch.io/ws')
@@ -78,9 +82,15 @@ export default function SwapBody() {
   }, [currentNetwork])
 
   useEffect(() => {
-    window.ethereum.on('chainChanged', () => {
-      localStorage.setItem('chainId', currentNetwork.id)
-    })
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        window.ethereum.on('chainChanged', () => {
+          localStorage.setItem('chainId', currentNetwork?.id)
+        })
+      } catch {
+        console.log('error')
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -113,7 +123,7 @@ export default function SwapBody() {
   const approveToken = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     const response = await axios.get(
-      `https://api.1inch.io/v5.0/${currentNetwork.id}/approve/transaction?`,
+      `https://api.1inch.io/v5.0/${currentNetwork?.id}/approve/transaction?`,
       {
         params: {
           tokenAddress: tokenForSell.address,
@@ -174,7 +184,7 @@ export default function SwapBody() {
     console.log(quoteParams)
 
     const res = await axios.get<{ tx: any }>(
-      `https://api.1inch.io/v5.0/${currentNetwork.id}/swap`,
+      `https://api.1inch.io/v5.0/${currentNetwork?.id}/swap`,
       {
         params: {
           fromTokenAddress: tokenForSell.address,
@@ -206,7 +216,7 @@ export default function SwapBody() {
 
       // value: roundBigNumber(tokenCountForSell, tokenForSell.decimals),
       data: data_swap.data,
-      chainId: currentNetwork.hex,
+      chainId: currentNetwork?.hex,
     }
 
     const txHash = await window.ethereum.request({
@@ -273,7 +283,7 @@ export default function SwapBody() {
               Approve token
             </button>
           )
-        ) : (
+        ) : hasMeta ? (
           <button
             type="submit"
             className="btn btn__stretched"
@@ -281,6 +291,15 @@ export default function SwapBody() {
           >
             Connect to metamask
           </button>
+        ) : (
+          <a
+            type="submit"
+            className="btn btn__stretched btn_link"
+            href="https://metamask.io"
+            target="_blank"
+          >
+            download metamask (link)
+          </a>
         )}
       </div>
       <div className="gas-buttons">

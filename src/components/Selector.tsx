@@ -34,7 +34,7 @@ export default function Selector({ type }: SelectorProps) {
     tokenForSell.address,
     tokenForBuy.address,
     (+tokenCountForSell * 1e18).toString(),
-    currentNetwork.id,
+    currentNetwork?.id,
     gasPriceData,
     txSpeed,
   ])
@@ -49,7 +49,7 @@ export default function Selector({ type }: SelectorProps) {
     isLoading: isLoad,
     isError: isErr,
     data: allowancesAndBalances,
-  } = useGetBalanceQuery([currentAccount, currentNetwork.id])
+  } = useGetBalanceQuery([currentAccount, currentNetwork?.id])
 
   useEffect(() => {
     if (!isLoading && !isError) {
